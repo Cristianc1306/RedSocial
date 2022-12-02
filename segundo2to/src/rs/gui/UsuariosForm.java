@@ -27,6 +27,11 @@ import rs.modelo.Gender;
 import rs.modelo.Usuario;
 import rs.util.Validation;
 
+/**
+ * Formulario de usuario
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class UsuariosForm extends JDialog {
 	
 	private final static Logger logger = Logger.getLogger(UsuariosForm.class);
@@ -64,7 +69,7 @@ public class UsuariosForm extends JDialog {
 	private String fechaDeNac;
 
 	/**
-	 * Create the frame.
+	 * Crea el marco
 	 */
 	public UsuariosForm() {
 		logger.debug("Cargando panel de usuarios");
@@ -240,6 +245,11 @@ public class UsuariosForm extends JDialog {
 		setModal(true);
 	}
 
+	/**
+	 * acciones del marco
+	 * @param accion
+	 * @param usuario
+	 */
 	public void accion(int accion, Usuario usuario) {
 
 		btnInsertar.setVisible(false);
@@ -299,6 +309,10 @@ public class UsuariosForm extends JDialog {
 
 	}
 	
+	/**
+	 * Establece texto de formulario y lo muestra
+	 * @param relacion
+	 */
 	private void mostrar(Usuario usuario) {
 
 		calendario.setDate(Validation.isDate(usuario.getFechaNacimiento().toString(), "yyyy-MM-dd"));
@@ -312,6 +326,9 @@ public class UsuariosForm extends JDialog {
 		jtfNivelAcademico.setText(usuario.getNivelAcademico());
 	}
 
+	/**
+	 * pone en blanco los textos del formulario
+	 */
 	private void limpiar() {
 		jtfNombre.setText("");
 		jtfId.setText("");
@@ -324,6 +341,11 @@ public class UsuariosForm extends JDialog {
 
 	}
 
+	/**
+	 * manejador de eventos
+	 * @author usuario
+	 *
+	 */
 	private class Handler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == btnCancelar)
@@ -412,6 +434,7 @@ public class UsuariosForm extends JDialog {
 		}
 
 	}
+	
 	private void selectIndexNA(Usuario u) {
 		for(int i=0;i<nivelesAcademicos.length;i++)
 			if(nivelesAcademicos[i].equalsIgnoreCase(u.getNivelAcademico())) {
@@ -438,6 +461,10 @@ public class UsuariosForm extends JDialog {
 			}
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
