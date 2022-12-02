@@ -15,10 +15,16 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import rs.dao.UsuarioDAO;
-import rs.dao.aleatorio.RelacionAleatorioDAO;
+//import rs.dao.aleatorio.RelacionAleatorioDAO;
 import rs.modelo.Gender;
 import rs.modelo.Usuario;
 
+/**
+ * 
+ * clase que accede secuencialmente al archivo de usuarios para la carga de datos
+ * @author Camacho, Cristian; Jaime, César
+ *
+ */
 public class UsuarioSecuencialDAO implements UsuarioDAO {
 	
 	final static Logger logger = Logger.getLogger(UsuarioSecuencialDAO.class);
@@ -26,13 +32,23 @@ public class UsuarioSecuencialDAO implements UsuarioDAO {
 	private List<Usuario> list;
 	private String name;
 
+	
+	/**
+	 * 
+	 * acceso a usuarios y carga en una lista de usuarios
+	 */
 	public UsuarioSecuencialDAO() {
 		
 		ResourceBundle rb = ResourceBundle.getBundle("secuencial");
 		name = rb.getString("usuarios");
 		list = readFromFile(name);
 	}
-     
+    
+	/**
+	 * Lista de usuarios a partir de la lectura del archivo
+	 * @param file
+	 * @return lista de usuarios
+	 */
 	private List<Usuario> readFromFile(String file) {
 
 		List<Usuario> list = new ArrayList<>();
@@ -69,6 +85,11 @@ public class UsuarioSecuencialDAO implements UsuarioDAO {
 		return list;
 	}
 
+	/**
+	 * escribe la lista de usuarios en el archivo
+	 * @param lista de usuarios
+	 * @param file
+	 */
 	private void writeToFile(List<Usuario> list, String file) {
 		Formatter outFile = null;
 		try {
@@ -88,11 +109,19 @@ public class UsuarioSecuencialDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * obtiene en una lista todas los usuarios
+	 * @return lista de usuarios
+	 */
 	@Override
 	public List<Usuario> buscarTodos() {
 		return list;
 	}
 
+	/**
+	 * insterta un usuario en el archivo
+	 * @param usuario
+	 */
 	@Override
 	public void insertar(Usuario usuario) {
 		if(!list.contains(usuario)) {
@@ -101,6 +130,10 @@ public class UsuarioSecuencialDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * actualiza la informacion de un usuario en el archivo
+	 * @param usuario
+	 */
 	@Override
 	public void actualizar(Usuario usuario) {
 		int pos = list.indexOf(usuario);
@@ -108,6 +141,10 @@ public class UsuarioSecuencialDAO implements UsuarioDAO {
 		writeToFile(list, name);
 	}
 
+	/**
+	 * borra usuario del archivo
+	 * @param usuario
+	 */
 	@Override
 	public void borrar(Usuario usuario) {
 		list.remove(usuario);
