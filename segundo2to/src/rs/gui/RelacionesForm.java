@@ -28,6 +28,11 @@ import rs.modelo.Relacion;
 import rs.modelo.Usuario;
 import rs.util.Validation;
 
+/**
+ * Formulario de consultas de una relacion
+ * @author Camacho, Cristan; Jaime, Cesar
+ *
+ */
 public class RelacionesForm extends JDialog {
 	
 	final static Logger logger = Logger.getLogger(RelacionesForm.class);
@@ -60,7 +65,7 @@ public class RelacionesForm extends JDialog {
 
 
 	/**
-	 * Create the frame.
+	 * Crea el marco.
 	 */
 	public RelacionesForm() {
 		 logger.debug("Cargando panel de relaciones");
@@ -169,6 +174,11 @@ public class RelacionesForm extends JDialog {
 		setModal(true);
 	}
 
+	/**
+	 * acciones
+	 * @param accion
+	 * @param relacion
+	 */
 	public void accion(int accion, Relacion relacion) {
 
 		btnInsertar.setVisible(false);
@@ -213,6 +223,10 @@ public class RelacionesForm extends JDialog {
 
 	}
 
+	/**
+	 * Establece texto de formulario y lo muestra
+	 * @param relacion
+	 */
 	private void mostrar(Relacion relacion) {
 		
 		calendario.setDate(Validation.isDate(relacion.getFechaAmistad().toString(), "yyyy-MM-dd"));
@@ -225,6 +239,9 @@ public class RelacionesForm extends JDialog {
 
 	}
 
+	/**
+	 * carga el combobox y su manejador de eventos
+	 */
 	private void cargarComboBox() {
 
 		cargarUsuarios();
@@ -260,6 +277,9 @@ public class RelacionesForm extends JDialog {
 		add(usuarios2JComboBox);
 	}
 
+	/**
+	 * carga los usuarios
+	 */
 	private void cargarUsuarios() {
 		int i = 0;
 		usuarios = new String[coordinador.listaUsuarios().size()];
@@ -269,6 +289,9 @@ public class RelacionesForm extends JDialog {
 		}
 	}
 
+	/**
+	 * pone en blanco el formulario.
+	 */
 	private void limpiar() {
 
 		jtfInteraccion.setText("");
@@ -279,6 +302,10 @@ public class RelacionesForm extends JDialog {
 		lblErrorTiempo.setText("");
 	}
 
+	/**
+	 * manejador de eventos
+	 * @author Camacho, Cristian
+	 */
 	private class Handler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			
@@ -360,6 +387,10 @@ public class RelacionesForm extends JDialog {
 
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
