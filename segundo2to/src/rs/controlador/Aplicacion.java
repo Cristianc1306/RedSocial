@@ -11,8 +11,9 @@ import rs.gui.UsuariosList;
 import rs.negocio.Calculo;
 import rs.negocio.RedSocial;
 /**
+ * Aplicación Red Social para ser presentado como proyecto ISFPP 2022
  * 
- * @author Cristian
+ * @author Cristian, Cesar
  *
  */
 public class Aplicacion {
@@ -29,6 +30,7 @@ public class Aplicacion {
 	private RelacionesForm relacionesForm;
 	private RelacionesList relacionesList;
 
+	/** Java main*/
 	public static void main(String[] args) {
 		
 		Aplicacion miAplicacion = new Aplicacion();
@@ -36,6 +38,7 @@ public class Aplicacion {
 
 	}
 
+	/**inicia la aplicación, el observer, la red social, el coordinador y las ventanas*/
 	private void iniciar() {
 		
 		subject = new Subject();
