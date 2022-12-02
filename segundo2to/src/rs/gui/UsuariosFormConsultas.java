@@ -31,6 +31,11 @@ import rs.modelo.Gender;
 import rs.modelo.Usuario;
 import rs.util.Validation;
 
+/**
+ * formulario de usuarios que responde a la consulta hecha
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class UsuariosFormConsultas extends JDialog {
 
 	final static Logger logger = Logger.getLogger(UsuariosFormConsultas.class);
@@ -61,6 +66,9 @@ public class UsuariosFormConsultas extends JDialog {
 	private ConsultasHilo consultasHilo;
 	private ExecutorService ejecutor = Executors.newCachedThreadPool();
 
+	/**
+	 * Crea el marco
+	 */
 	public UsuariosFormConsultas() {
 		logger.debug("Cargando panel de consultas de usuarios");
 		setBounds(450, 150, 500, 300);
@@ -116,6 +124,11 @@ public class UsuariosFormConsultas extends JDialog {
 		contentPane.add(progressBar);
 	}
 
+	/**
+	 * manejador de eventos
+	 * @param opcion la consulta elegida
+	 * @param nombre titulo de la consulta
+	 */
 	public void accion(int opcion, String nombre) {
 
 		setTitle(nombre);
@@ -182,6 +195,9 @@ public class UsuariosFormConsultas extends JDialog {
 
 	}
 
+	/**
+	 * carga los usuarios en el formulario
+	 */
 	private void cargarUsuarios() {
 		usuarios = new String[coordinador.listaUsuarios().size()];
 		int i = 0;
@@ -191,6 +207,11 @@ public class UsuariosFormConsultas extends JDialog {
 		}
 	}
 
+	/**
+	 * manejador de eventos
+	 * @author usuario
+	 *
+	 */
 	private class Handler implements ActionListener, PropertyChangeListener {
 		public void actionPerformed(ActionEvent event) {
 
@@ -209,7 +230,7 @@ public class UsuariosFormConsultas extends JDialog {
 			if (event.getSource() == btnConsultar) {
 				lblEspera.setText("Calculando...");
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-				consultasHilo = new ConsultasHilo(100, coordinador, estaClase());
+				consultasHilo = new ConsultasHilo(10, coordinador, estaClase());
 				consultasHilo.addPropertyChangeListener(this);
 				ejecutor.execute(consultasHilo);
 				progressBar.setVisible(true);
@@ -219,7 +240,8 @@ public class UsuariosFormConsultas extends JDialog {
 		}
 
 		/**
-		 * Invoked when task's progress property changes.
+		 * Se invoca cuando cambia la propiedad de progreso de la tarea.
+		 * 
 		 */
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -234,6 +256,9 @@ public class UsuariosFormConsultas extends JDialog {
 
 	}
 
+	/**
+	 * muestra el formulario respuesta a la consulta elegida
+	 */
 	public void mostrarConsulta() {
 
 		switch (opcion) {
@@ -264,14 +289,14 @@ public class UsuariosFormConsultas extends JDialog {
 
 				accion(opcion, nombre);
 			} else {
-				if (coordinador.mostrarTiempoAmistad(u1, u2) == null)
+				if (coordinador.mostrarRelacionDeAmistad(u1, u2) == null)
 					JOptionPane.showMessageDialog(null, u1.getNombre() + " y " + u2.getNombre() + " no son amigos");
 				else {
 					JOptionPane.showMessageDialog(null,
 							"La relación entre " + u1.getNombre() + " y " + u2.getNombre() + " es:\n"
-									+ "Tiempo de Amistad=" + coordinador.mostrarTiempoAmistad(u1, u2).getTiempoAmistad()
-									+ " años" + "\nLikes=" + coordinador.mostrarTiempoAmistad(u1, u2).getLikes()
-									+ "\nInteracción=" + coordinador.mostrarTiempoAmistad(u1, u2).getInteraccion()
+									+ "Tiempo de Amistad=" + coordinador.mostrarRelacionDeAmistad(u1, u2).getTiempoAmistad()
+									+ " años" + "\nLikes=" + coordinador.mostrarRelacionDeAmistad(u1, u2).getLikes()
+									+ "\nInteracción=" + coordinador.mostrarRelacionDeAmistad(u1, u2).getInteraccion()
 									+ " horas promedio al dia");
 				}
 			}
@@ -309,10 +334,18 @@ public class UsuariosFormConsultas extends JDialog {
 		btnConsultar.setEnabled(true);
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
 
+	/**
+	 * obtiene usuariosFormConsultas
+	 * @return usuariosFormConsultas
+	 */
 	private UsuariosFormConsultas estaClase() {
 
 		return this;
