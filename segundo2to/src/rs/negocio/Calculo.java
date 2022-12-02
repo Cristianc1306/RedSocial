@@ -21,6 +21,9 @@ import rs.modelo.Relacion;
 import rs.modelo.Usuario;
 import rs.util.Calendario;
 
+/**
+ * Clase que realiza los disintos calculos para efectuar las consultas requeridas
+ */
 public class Calculo implements Observer {
 
 	final static Logger logger = Logger.getLogger(Calculo.class);
@@ -30,6 +33,15 @@ public class Calculo implements Observer {
 	private Coordinador coordinador;
 	private Subject subject;
 	private boolean actualizar;
+
+/** Constructor calculo
+ * 
+ * @param subject
+ * @param usuarios
+ * @param relaciones
+ * 
+ * inicia el grafo que contiene la red social, cargando en él los vertices (usuarios) y arcos (relaciones)
+ */
 
 	public Calculo(Subject subject, List<Usuario> usuarios, List<Relacion> relaciones) {
 		logger.debug("Cargando grafo");
@@ -54,14 +66,21 @@ public class Calculo implements Observer {
 
 	}
 
-	/** retorna el grafo */
+	/** grafo
+	 * 
+	 * @return grafo de red social
+	 */
 	public Graph<Usuario, Relacion> getRedSocial() {
 		return redSocial;
 	}
 
 	// Consultas
 
-	/** Muestra un listado de los amigos de un usuario */
+	/** amigos de un usuario
+	 * 
+	 * @param usuario
+	 * @return Muestra un listado de los amigos de un usuario
+	 */
 	public List<Usuario> amigosDe(Usuario u) {
 		realizarCalculo();
 		List<Usuario> amigos = new ArrayList<Usuario>();
@@ -77,8 +96,13 @@ public class Calculo implements Observer {
 		return amigos;
 	}
 
-	/** tiempo de amistad entre dos usuarios */
-	public Relacion tiempoDeAmistad(Usuario u1, Usuario u2) {
+	/** tiempo de amistad entre dos usuarios
+	 * 
+	 * @param usuario 1
+	 * @param usuario 2
+	 * @return tiempo de amistad entre usuario1 y usuario2
+	 */
+	public Relacion relacionDeAmistad(Usuario u1, Usuario u2) {
 		realizarCalculo();
 		Edge<Relacion> arcoAmistad = redSocial.getEdge(vertices.get(u1.getId()), vertices.get(u2.getId()));
 		if (arcoAmistad == null)
@@ -87,7 +111,10 @@ public class Calculo implements Observer {
 		return arcoAmistad.getElement();
 	}
 
-	/** Listado de los usuarios en orden del más influyente al menos */
+	/** usuarios más influyentes
+	 * 
+	 * @return Listado de los usuarios en orden del más influyente al menos
+	 */
 	public List<Usuario> masInfluyentes() {
 		realizarCalculo();
 		List<Usuario> influyentes = new ArrayList<Usuario>(redSocial.numVertices());
@@ -111,7 +138,10 @@ public class Calculo implements Observer {
 		return influyentes;
 	}
 
-	/** Usuario más influyente */
+	/** Usuario más influyente
+	 * 
+	 * @return usuario más influyente
+	 */
 	public Usuario masInfluyente() {
 		
 		realizarCalculo();
@@ -123,7 +153,10 @@ public class Calculo implements Observer {
 		return influyente;
 	}
 
-	/** usuarios que más interactuan */
+	/** usuarios que más interactuan
+	 * 
+	 * @return listado de usuarios que más interactúan en la red
+	 */
 	public List<Usuario> usuariosQueMasInteractuan() {
 		realizarCalculo();
 		TreeMap<String, Integer> usuariosIdInteracciones = new TreeMap<String, Integer>();
@@ -135,7 +168,11 @@ public class Calculo implements Observer {
 		return ordenarUsuariosQueMasInteractuanEntreSi(usuariosIdInteracciones);
 	}
 
-	/** total de interacciones de un usuario */
+	/** total de interacciones de un usuario
+	 * 
+	 * @param usuario u
+	 * @return total de interaccion
+	 */
 	public int totalInteraccionesUsuarios(Usuario u) {
 		realizarCalculo();
 		int interacciones = 0;
@@ -145,7 +182,10 @@ public class Calculo implements Observer {
 		return interacciones;
 	}
 
-	/** Usuario que más interactúa en las redes sociales */
+	/** Usuario que más interactúa en las redes sociales
+	 * 
+	 * @return usuario que más interactúa
+	 */
 	public Usuario usuarioQueMasIteractuaEnRedes() {
 		realizarCalculo();
 		Usuario vicio = null;
@@ -163,7 +203,12 @@ public class Calculo implements Observer {
 		return vicio;
 	}
 
-	/** Camino más nuevo entre dos usuarios */
+	/** Camino más nuevo entre dos usuarios
+	 * 
+	 * @param id de usuario 1
+	 * @param id1 de usuario 2
+	 * @return camino más nuevo entre dos usuarios
+	 */
 	public List<Usuario> caminoMasNuevo(String id, String id1) {
 		realizarCalculo();
 		PositionalList<Vertex<Usuario>> c = null;
@@ -190,8 +235,11 @@ public class Calculo implements Observer {
 		return camino;
 
 	}
-	/**
-	  Sugerencias de nueva amistad */
+	/**Sugerencias de nueva amistad
+	 * 
+	 * @param usuario 
+	 * @return lista de usuarios que sugiere como nueva amistad
+	 */
 	public List<Usuario> sugerenciaNuevaAmistad(Usuario usuario) {
 		realizarCalculo();
 		List<Usuario> sugerenciasNuevasAmistad = new ArrayList<Usuario>();
@@ -215,10 +263,22 @@ public class Calculo implements Observer {
 			if (amigosEnComun >= amigosNecesarios)
 				sugerenciasNuevasAmistad.add(verticeSugerido.getElement());
 		}
+		if (sugerenciasNuevasAmistad.size() == 0) {
+			for (int i = 0; i < sugeridos.size(); i++) {
+				Usuario u = masInfluyentes().get(i);
+				Vertex<Usuario> v = vertices.get(u.getId());
+				if (sugeridos.contains(v)) {
+					sugerenciasNuevasAmistad.add(u);
+				}
+			}
+		}
 		return sugerenciasNuevasAmistad;
 	}
 
-	/** Devuelve el grado promedio */
+	/** Devuelve el grado promedio 
+	 * 
+	 * @return grado promedio
+	 */
 	public double gradoPromedio() {
 		realizarCalculo();
 		if (redSocial.numEdges() == 0)
@@ -238,6 +298,7 @@ public class Calculo implements Observer {
 
 	// metodos privados
 
+	 
 	private List<Vertex<Usuario>> noSonAmigosDe(Usuario usuario) {
 		List<Vertex<Usuario>> sugeridos = new ArrayList<Vertex<Usuario>>();
 		for (Vertex<Usuario> v : redSocial.vertices()) {
@@ -250,7 +311,11 @@ public class Calculo implements Observer {
 		return sugeridos;
 	}
 
-	/** ordena los usuarios por interacciones */
+	/** ordena los usuarios por interacciones
+	 * 
+	 * @param arbolUsuarioInteracciones
+	 * @return usuarios ordenados por interacciones
+	 */
 	private List<Usuario> ordenarUsuariosQueMasInteractuanEntreSi(TreeMap<String, Integer> arbolUsuarioInteracciones) {
 		List<Usuario> usuariosOredenadosPorInteracciones = new ArrayList<Usuario>();
 		Integer data[] = new Integer[arbolUsuarioInteracciones.size()];
@@ -293,18 +358,24 @@ public class Calculo implements Observer {
 		return usuariosOredenadosPorInteracciones;
 	}
 
+	/** recargar el grafo
+	 * 
+	 * @param usuarios
+	 * @param relaciones
+	 */
 	private void volverCargarGrafo(List<Usuario> usuarios, List<Relacion> relaciones) {
 		redSocial = new AdjacencyMapGraph<>(false);
 		vertices.clear();
 		for (Usuario u : usuarios)
 			vertices.put(u.getId(), redSocial.insertVertex(u));
-
 		arcos = relaciones;
-
 		for (Relacion r : arcos)
 			redSocial.insertEdge(vertices.get(r.getUsuario1().getId()), vertices.get(r.getUsuario2().getId()), r);
 	}
 
+	/** vuelve a cargar el grafo si fue actualizado
+	 * 
+	 */
 	private void realizarCalculo() {
      
 		if (actualizar) {
@@ -315,10 +386,17 @@ public class Calculo implements Observer {
 			logger.info("No se actualizaron los datos");
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
 
+	/**
+	 * actualizar
+	 */
 	@Override
 	public void update() {
 		actualizar = true;
