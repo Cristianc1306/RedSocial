@@ -19,6 +19,11 @@ import rs.controlador.Constantes;
 import rs.controlador.Coordinador;
 import rs.modelo.Usuario;
 
+/**
+ * Lista de usuarios que responden a la consulta hecha
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class UsuariosListResult extends JDialog {
 
 	final static Logger logger = Logger.getLogger(UsuariosListResult.class);
@@ -28,6 +33,9 @@ public class UsuariosListResult extends JDialog {
 	private JTable tableUsuariosMetodos;
 	private JLabel lblUsuario;
 
+	/**
+	 * crea el marco.
+	 */
 	public UsuariosListResult() {
 		logger.debug("Cargando lista de resultados de consultas");
 	
@@ -55,6 +63,13 @@ public class UsuariosListResult extends JDialog {
 		tableUsuariosMetodos.setEnabled(false);
 	}
 
+	/**
+	 * carga la tabla de usuarios
+	 * @param usu usuario
+	 * @param id1 identificador usuario 1
+	 * @param id2 indentificador usuario 2
+	 * @param opcion consulta elegida
+	 */
 	public void loadTable(Usuario usu, String id1, String id2, int opcion) {
 		((DefaultTableModel) tableUsuariosMetodos.getModel()).setRowCount(0);
 		switch (opcion) {
@@ -78,7 +93,7 @@ public class UsuariosListResult extends JDialog {
 
 			for (int i = 1; i < u1.size(); i++)
 				addRow(u1.get(i),
-						Integer.toString(coordinador.mostrarTiempoAmistad(u1.get(i), u1.get(i - 1)).getTiempoAmistad())
+						Integer.toString(coordinador.mostrarRelacionDeAmistad(u1.get(i), u1.get(i - 1)).getTiempoAmistad())
 								+ " años");
 			break;
 		case Constantes.AMIGOS_DE:
@@ -108,6 +123,11 @@ public class UsuariosListResult extends JDialog {
 
 	}
 
+	/**
+	 * agrega fila de usuario a la tabla
+	 * @param usu usuario
+	 * @param t titulo de la consulta
+	 */
 	public void addRow(Usuario usu, String t) {
 		Object[] row = new Object[tableUsuariosMetodos.getModel().getColumnCount()];
 
@@ -124,10 +144,18 @@ public class UsuariosListResult extends JDialog {
 		((DefaultTableModel) tableUsuariosMetodos.getModel()).addRow(row);
 	}
 
+	/**
+	 * 
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
 
+	/**
+	 * modela la tabla dependiendo de la consulta elegida
+	 * @param opcion
+	 */
 	private void modeloDeTabla(int opcion) {
 		switch (opcion) {
 		case Constantes.MAS_INFLUYENTES:
