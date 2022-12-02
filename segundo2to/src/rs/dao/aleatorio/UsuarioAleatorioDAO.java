@@ -16,6 +16,11 @@ import rs.modelo.Gender;
 import rs.modelo.Usuario;
 import rs.util.FileUtil;
 
+/**
+ * Clase que accede al archivo de usuarios de forma aleatoria implementa Interfaz UsuarioDAO
+ * @author Camacho, Cristian; Jaime, César
+ *
+ */
 public class UsuarioAleatorioDAO implements UsuarioDAO {
 	
 	final static Logger logger = Logger.getLogger(UsuarioAleatorioDAO.class);
@@ -33,6 +38,10 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 			+ Character.BYTES * SIZE_GENERO + Character.BYTES * SIZE_CIUDAD + FileUtil.SIZE_DATE
 			+ Character.BYTES * SIZE_ESTADOCIVIL + Character.BYTES * SIZE_NIVELACADEMICO;
 
+	/**
+	 * La conexion se establece con el archivo usuarios el cual es leído y genera una tabla hash 
+	 * de id usuarios  y posiciones.
+	 */
 	public UsuarioAleatorioDAO() {
 		
 		if (file == null) {
@@ -64,6 +73,10 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * Se obtiene una lista con todas los usuarios
+	 * @return lista de usuarios
+	 */
 	public List<Usuario> buscarTodos() {
 		List<Usuario> ret = new ArrayList<Usuario>();
 		Usuario usuario;
@@ -87,6 +100,9 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * Se inserta un usuario al archivo de usuarios
+	 */
 	@Override
 	public void insertar(Usuario usuario) {
 		Integer pos = index.get(usuario.getId());
@@ -104,6 +120,10 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * 
+	 * Actualiza la informacion de un usuario en el archivo de usuarios.
+	 */
 	@Override
 	public void actualizar(Usuario usuario) {
 		Integer pos = index.get(usuario.getId());
@@ -120,6 +140,9 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 
 	}
 
+	/**
+	 * se borra un usuario del archivo de usuarios
+	 */
 	@Override
 	public void borrar(Usuario usuario) {
 		Integer pos = index.get(usuario.getId());
@@ -140,6 +163,10 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public void pack() throws IOException {
 		List<Usuario> usuarios = buscarTodos();
 		AConnection.backup("usuarios");
@@ -151,6 +178,11 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 			insertar(ea);
 	}
 
+	/**
+	 * lee el registro del archivo 
+	 * @return usuario
+	 * @throws IOException
+	 */
 	private Usuario readRecord() throws IOException {
 		return new Usuario(FileUtil.readString(file, SIZE_ID), FileUtil.readString(file, SIZE_NOMBRE),
 				Gender.valueOf(FileUtil.readString(file, SIZE_GENERO)), FileUtil.readString(file, SIZE_CIUDAD),
@@ -159,6 +191,11 @@ public class UsuarioAleatorioDAO implements UsuarioDAO {
 
 	}
 
+	/**
+	 * escribe un registro de usuario en el archivo.
+	 * @param usuario
+	 * @throws IOException
+	 */
 	private void writeRecord(Usuario usuario) throws IOException {
 		FileUtil.writeString(file, usuario.getId(), SIZE_ID);
 		FileUtil.writeString(file, usuario.getNombre(), SIZE_NOMBRE);
