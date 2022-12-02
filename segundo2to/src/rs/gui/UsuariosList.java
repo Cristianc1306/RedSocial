@@ -23,6 +23,11 @@ import rs.controlador.Constantes;
 import rs.controlador.Coordinador;
 import rs.modelo.Usuario;
 
+/**
+ * Listado de usuarios
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class UsuariosList extends JDialog {
 	
 	final static Logger logger = Logger.getLogger(UsuariosList.class);
@@ -35,7 +40,7 @@ public class UsuariosList extends JDialog {
 	private Usuario usuario;
 
 	/**
-	 * Create the frame.
+	 * Crea el marco.
 	 */
 	public UsuariosList() {
 		logger.debug("Cargando lista de usuarios");
@@ -82,12 +87,19 @@ public class UsuariosList extends JDialog {
 		}
 	}
 
+	/**
+	 * carga la tabla con el listado de usuarios
+	 */
 	public void loadTable() {
 		((DefaultTableModel) tableUsuarios.getModel()).setRowCount(0);
 		for (Usuario u : coordinador.listaUsuarios())
 			addRow(u);
 	}
 
+	/**
+	 * agregaga fila de usuario a la talba
+	 * @param usu
+	 */
 	public void addRow(Usuario usu) {
 		Object[] row = new Object[tableUsuarios.getModel().getColumnCount()];
 
@@ -103,6 +115,10 @@ public class UsuariosList extends JDialog {
 		((DefaultTableModel) tableUsuarios.getModel()).addRow(row);
 	}
 
+	/**
+	 * actualiza la fila
+	 * @param row
+	 */
 	private void updateRow(int row) {
 
 		tableUsuarios.setValueAt(usuario.getId(), row, 0);
@@ -233,14 +249,26 @@ public class UsuariosList extends JDialog {
 		}
 	}
 
+	/**
+	 * establce coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
 
+	/**
+	 * establece accion
+	 * @param accion
+	 */
 	public void setAccion(int accion) {
 		this.accion = accion;
 	}
 
+	/**
+	 * establece usuario
+	 * @param usuario
+	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
