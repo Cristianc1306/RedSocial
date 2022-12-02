@@ -47,6 +47,7 @@ public class RelacionesList extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Relaciones");
 		
 		btnInsertar = new JButton("Insertar");
 		btnInsertar.setBounds(38, 400, 114, 32);

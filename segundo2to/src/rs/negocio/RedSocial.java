@@ -101,16 +101,9 @@ public class RedSocial {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
 	public List<Relacion> getRelaciones() {
 		return relaciones;
 	}
 
-	public void setRelaciones(List<Relacion> relaciones) {
-		this.relaciones = relaciones;
-	}
 
 }

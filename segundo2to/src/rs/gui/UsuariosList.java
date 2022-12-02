@@ -45,6 +45,7 @@ public class UsuariosList extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Usuarios");
 		
 		btnInsertar = new JButton("Insertar");
 		btnInsertar.setBounds(38, 395, 114, 32);
