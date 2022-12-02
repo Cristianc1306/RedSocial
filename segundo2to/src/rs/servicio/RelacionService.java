@@ -4,6 +4,11 @@ import java.util.List;
 
 import rs.modelo.Relacion;
 
+/**
+ * interfaz de servicio de relaciones
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public interface RelacionService {
 
 	void insertar(Relacion relacion);
