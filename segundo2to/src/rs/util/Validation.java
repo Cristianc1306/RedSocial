@@ -9,8 +9,18 @@ import java.util.Date;
 
 import rs.modelo.Gender;
 
+/**
+ * Clase util validacion
+ * @author Jaime, Cesar; Camacho, Cristian
+ *
+ */
 public class Validation {
 
+	/**
+	 * convierte string en double
+	 * @param string
+	 * @return double
+	 */
 	public static Double isDouble(String str) {
 		try {
 			return Double.parseDouble(str);
@@ -19,6 +29,11 @@ public class Validation {
 		}
 	}
 
+	/**
+	 * convierte string en integer
+	 * @param string
+	 * @return integer
+	 */
 	public static int isInteger(String str) {
 		try {
 			return Integer.parseInt(str);
@@ -27,6 +42,12 @@ public class Validation {
 		}
 	}
 
+	/**
+	 * convierte string en localDate
+	 * @param string date
+	 * @return LocalDate
+	 */
+	 
 	public static LocalDate isDate(String date) {
 		try {
 			return LocalDate.parse(date);
@@ -35,6 +56,11 @@ public class Validation {
 		}
 	}
 
+	/**
+	 * convierte string en genero
+	 * @param string
+	 * @return Genero
+	 */
 	public static Gender isGenero(String g) {
 		try {
 			return Gender.valueOf(g);
@@ -42,6 +68,13 @@ public class Validation {
 			return null;
 		}
 	}
+	
+	/**
+	 * convierte formato de fechas
+	 * @param dateStr
+	 * @param dateFormat
+	 * @return DateFormat
+	 */
 	public static Date isDate(String dateStr, String dateFormat) {
 		DateFormat sdf = new SimpleDateFormat(dateFormat);
 
