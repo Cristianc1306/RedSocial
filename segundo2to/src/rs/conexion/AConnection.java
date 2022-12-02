@@ -10,11 +10,21 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 import rs.util.FileUtil;
 
+/**
+ * Genera una única instancia de conexion.
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class AConnection {
 	
 	final static Logger logger = Logger.getLogger(AConnection.class);
 	private static Hashtable<String, RandomAccessFile> files = new Hashtable<String, RandomAccessFile>();
 
+	/**
+	 * Obtiene la instancia unica de conexion
+	 * @param name
+	 * @return file
+	 */
 	public static RandomAccessFile getInstancia(String name) {
 		try {
 			// verifico si existe un objeto relacionado a objName
@@ -37,9 +47,11 @@ public class AConnection {
 		}
 	}
 
-	static class MiShDwnHook extends Thread {
-		// justo antes de finalizar el programa la JVM invocara
-		// a este metodo donde podemos cerrar la conexion
+	/**
+	 * antes de finalizar el programa la JVM invocara
+	 * a este metodo donde podemos cerrar la conexion
+	 */
+	static class MiShDwnHook extends Thread { 
 		public void run() {
 			try {
 				for (RandomAccessFile file : files.values())
@@ -51,6 +63,10 @@ public class AConnection {
 		}
 	}
 
+	/**
+	 * backUp
+	 * @param name
+	 */
 	public static void backup(String name) {
 		ResourceBundle rb = ResourceBundle.getBundle("file");
 		String fileName = rb.getString(name);
@@ -60,6 +76,10 @@ public class AConnection {
 		}
 	}
 
+	/**
+	 * cierra la conexion
+	 * @param name
+	 */
 	private static void close(String name) {			
 		RandomAccessFile file = files.get(name);
 		try {
@@ -70,6 +90,10 @@ public class AConnection {
 		}
 	}
 	
+	/**
+	 * elimina la conexion.
+	 * @param name
+	 */
 	public static void delete(String name) {
 		ResourceBundle rb = ResourceBundle.getBundle("file");
 		String fileName = rb.getString(name);		
