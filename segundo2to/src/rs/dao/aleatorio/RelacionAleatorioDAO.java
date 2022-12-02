@@ -18,6 +18,11 @@ import rs.modelo.Relacion;
 import rs.modelo.Usuario;
 import rs.util.FileUtil;
 
+/**
+ * Clase que accede al archivo de relaciones de forma aleatoria implementa Interfaz RelacionDAO
+ * @author Camacho, Cristian; Jaime, César
+ *
+ */
 public class RelacionAleatorioDAO implements RelacionDAO {
 	
 	final static Logger logger = Logger.getLogger(RelacionAleatorioDAO.class);
@@ -33,6 +38,11 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 
 	private Hashtable<String, Usuario> usuarios;
 
+	/**
+	 * La conexion se establece con el archivo relaciones el cual es leído y genera una tabla hash 
+	 * de codigo de relaciones  y posiciones.
+	 * 
+	 */
 	public RelacionAleatorioDAO() {
 		
 		if (file == null) {
@@ -64,6 +74,10 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * Se obtiene una lista con todas las relaciones
+	 * @return lista de relaciones
+	 */
 	public List<Relacion> buscarTodos() {
 		List<Relacion> ret = new ArrayList<Relacion>();
 		Relacion relacion;
@@ -88,6 +102,9 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * Se inserta una relacion al archivo de relaciones
+	 */
 	@Override
 	public void insertar(Relacion relacion) {
 		Integer pos = index.get(relacion.hashCode());
@@ -105,6 +122,9 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * Actualiza la informacion de una relacion en el archivo de relaciones.
+	 */
 	@Override
 	public void actualizar(Relacion relacion) {
 		Integer pos = index.get(relacion.hashCode());
@@ -122,6 +142,9 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 
 	}
 
+	/**
+	 * se borra una relacion del archivo de relaciones
+	 */
 	@Override
 	public void borrar(Relacion relacion) {
 		Integer pos = index.get(relacion.hashCode());
@@ -142,6 +165,10 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public void pack() throws IOException {
 		List<Relacion> relaciones = buscarTodos();
 		AConnection.backup("relaciones");
@@ -153,6 +180,10 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 			insertar(ea);
 	}
 
+	/**
+	 * obtiene una tabla hash de codigo de usuario y usuarios
+	 * @return
+	 */
 	private Hashtable<String, Usuario> cargarUsuarios() {
 		Hashtable<String, Usuario> lusuarios = new Hashtable<>();
 		UsuarioDAO usuarioDAO = (UsuarioDAO) Factory.getInstancia("USUARIOS");
@@ -163,6 +194,11 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 		return lusuarios;
 	}
 
+	/**
+	 * lee el registro de archivo
+	 * @return relacion
+	 * @throws IOException
+	 */
 	private Relacion readRecord() throws IOException {
 
 		return new Relacion(usuarios.get(FileUtil.readString(file, SIZE_ID1)),
@@ -170,6 +206,11 @@ public class RelacionAleatorioDAO implements RelacionDAO {
 				FileUtil.readDate(file));
 	}
 
+	/**
+	 * escribe en el archivo un registro la relacion
+	 * @param relacion
+	 * @throws IOException
+	 */
 	private void writeRecord(Relacion relacion) throws IOException {
 		FileUtil.writeString(file, relacion.getUsuario1().getId(), SIZE_ID1);
 		FileUtil.writeString(file, relacion.getUsuario2().getId(), SIZE_ID2);
