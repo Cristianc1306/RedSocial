@@ -19,10 +19,15 @@ import org.apache.log4j.Logger;
 import rs.conexion.Factory;
 import rs.dao.RelacionDAO;
 import rs.dao.UsuarioDAO;
-import rs.dao.aleatorio.RelacionAleatorioDAO;
+//import rs.dao.aleatorio.RelacionAleatorioDAO;
 import rs.modelo.Relacion;
 import rs.modelo.Usuario;
 
+/**
+ * clase que accede secuencialmente al archivo relaciones para la carga de datos
+ * @author Camacho, Cristian; Jaime, César
+ *
+ */
 public class RelacionSecuencialDAO implements RelacionDAO {
 	
 	final static Logger logger = Logger.getLogger(RelacionSecuencialDAO.class);
@@ -31,6 +36,9 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 	private String name;
 	private TreeMap<String, Usuario> usuarios;
 
+	/**
+	 * acceso a relaciones y carga en una lista de relaciones
+	 */
 	public RelacionSecuencialDAO() {
 		
 		ResourceBundle rb = ResourceBundle.getBundle("secuencial");
@@ -39,6 +47,11 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 		list = readFromFile(name);
 	}
 
+	/**
+	 * Lista de relaciones a partir de la lectura del archivo
+	 * @param file
+	 * @return lista de relaciones
+	 */
 	private List<Relacion> readFromFile(String file) {
 		List<Relacion> list = new ArrayList<>();
 		Scanner inFile = null;
@@ -70,6 +83,11 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 		return list;
 	}
 
+	/**
+	 * escribe la lista de relaciones en el archivo
+	 * @param lista de relaciones
+	 * @param file
+	 */
 	private void writeToFile(List<Relacion> list, String file) {
 		Formatter outFile = null;
 	
@@ -90,11 +108,19 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * obtiene en una lista todas las relaciones
+	 * @return lista de relaciones
+	 */
 	@Override
 	public List<Relacion> buscarTodos() {
 		return list;
 	}
 
+	/**
+	 * insterta una relacion en el archivo
+	 * @param relacion
+	 */
 	@Override
 	public void insertar(Relacion relacion) {
 		if(!list.contains(relacion)) {
@@ -103,6 +129,10 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 		}
 	}
 
+	/**
+	 * actualiza la informacion de la relacion en el archivo
+	 * @param relacion
+	 */
 	@Override
 	public void actualizar(Relacion relacion) {
 		int pos = list.indexOf(relacion);
@@ -110,11 +140,20 @@ public class RelacionSecuencialDAO implements RelacionDAO {
 		writeToFile(list, name);
 	}
 
+	/**
+	 * borra relacion del archivo
+	 * @param relacion
+	 */
 	@Override
 	public void borrar(Relacion relacion) {
 		list.remove(relacion);
 		writeToFile(list, name);
 	}
+	
+	/**
+	 * carga los usuarios del archivo en un mapa de id usuarios y usuarios
+	 * @return mapa de id de usuario y usarios
+	 */
 	private TreeMap<String, Usuario> cargaUsuarios() {
 		TreeMap<String, Usuario> usuariosM =new TreeMap<String, Usuario>();
 		UsuarioDAO usuarioDAO = (UsuarioDAO) Factory.getInstancia("USUARIOS");
