@@ -1,5 +1,9 @@
 package rs.controlador;
-
+/**
+ * valores estaticos de constantes.
+ * @author Jaime, Cesar; Camacho, Cristian
+ *
+ */
 public class Constantes {
 	
 	public final static int CANCELAR = 0;
