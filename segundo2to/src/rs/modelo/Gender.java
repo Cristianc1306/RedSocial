@@ -1,5 +1,10 @@
 package rs.modelo;
 
+/**
+ * Enumeracion de generos
+ * @author Camacho, Cristia; Jaime,Cesar
+ *
+ */
 public enum Gender {
 	M("mujer"), H("hombre"), NB ("no binario");
 
@@ -9,6 +14,10 @@ public enum Gender {
 		this.genero = genero;
 	}
 
+	/**
+	 * obtiene genero
+	 * @return genero
+	 */
 	public String getGenero() {
 		return genero;
 	}
