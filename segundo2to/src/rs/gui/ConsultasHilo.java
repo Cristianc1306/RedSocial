@@ -6,12 +6,23 @@ import javax.swing.SwingWorker;
 
 import rs.controlador.Coordinador;
 
+/**
+ * Hilo de ejecución de consultas
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class ConsultasHilo extends SwingWorker<Void, Void> {
 
 	private int baseSleepTime;
 	private Coordinador coordinador;
 	private UsuariosFormConsultas usuariosFormConsultas;
 
+	/**
+	 * constructor de consultasHilo
+	 * @param baseSleepTime 
+	 * @param coordinador
+	 * @param usuariosFormConsultas
+	 */
 	public ConsultasHilo(int baseSleepTime, Coordinador coordinador, UsuariosFormConsultas usuariosFormConsultas) {
 		super();
 		this.baseSleepTime = baseSleepTime;
@@ -20,7 +31,7 @@ public class ConsultasHilo extends SwingWorker<Void, Void> {
 	}
 
 	/**
-	 * Main task. Executed in background thread.
+	 * Tarea principal. Ejecutado en un hilo secundario.
 	 */
 	@Override
 	public Void doInBackground() {
@@ -28,7 +39,7 @@ public class ConsultasHilo extends SwingWorker<Void, Void> {
 		int progress = 0;
 		// Initialize progress property.
 		setProgress(0);
-		while (progress < 100 && !isCancelled()) {
+		while (progress < 10 && !isCancelled()) {
 			// Sleep for up to one second.
 			try {
 				Thread.sleep(random.nextInt(1000) + baseSleepTime);
@@ -43,7 +54,7 @@ public class ConsultasHilo extends SwingWorker<Void, Void> {
 	}
 
 	/**
-	 * Executed in event dispatching thread
+	 * Ejecutado en el hilo primario.
 	 */
 	@Override
 	public void done() {
