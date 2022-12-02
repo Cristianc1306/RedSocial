@@ -19,6 +19,11 @@ import org.apache.log4j.Logger;
 
 import rs.controlador.Coordinador;
 
+/**
+ * Marco
+ * @author Camacho, Cristian; Jaime, Cesar
+ *
+ */
 public class DesktopFrame extends JFrame {
 
 	final static Logger logger = Logger.getLogger(DesktopFrame.class);
@@ -30,7 +35,10 @@ public class DesktopFrame extends JFrame {
 	private JMenuItem mntmNewMenuItem1;
 	private JMenuItem mntmNewMenuItem2;
 
-
+/**
+ * constructor marco.
+ * Despliega el menú, y el combobox con las funcionalidades
+ */
 	public DesktopFrame() {
 
 		logger.debug("Cargando panel principal");
@@ -90,6 +98,11 @@ public class DesktopFrame extends JFrame {
 
 	}
 
+	/**
+	 * manejador de eventos del menú del marco
+	 * @author usuario
+	 *
+	 */
 	private class Handler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 
@@ -102,6 +115,11 @@ public class DesktopFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * fondo del marco
+	 * @author usuario
+	 *
+	 */
 	private class Fondo extends JPanel {
 		public void paint(Graphics g) {
 			ImageIcon imagen = new ImageIcon(getClass().getResource("/rs/imagen/fondo.jpg"));
@@ -111,6 +129,10 @@ public class DesktopFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
