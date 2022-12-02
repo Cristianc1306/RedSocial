@@ -4,11 +4,20 @@ import java.util.Hashtable;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
-
+/**
+ * Crea las instancias para clases de lecturas de datos. 
+ * @author Jaime, César; Camacho, Cristian
+ *
+ */
 public class Factory {
 	final static Logger logger = Logger.getLogger(Factory.class);
 	private static Hashtable<String, Object> instancias = new Hashtable<String, Object>();
 
+	/**
+	 * obtiene la instancia
+	 * @param objName usuarios o relaciones 
+	 * @return objeto relacionado con la lectura de usuarios o relaciones.
+	 */
 	public static Object getInstancia(String objName) {
 		try {
 			// verifico si existe un objeto relacionado a objName
