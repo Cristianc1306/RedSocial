@@ -25,6 +25,11 @@ import rs.controlador.Coordinador;
 import rs.modelo.Relacion;
 import rs.modelo.Usuario;
 
+/**
+ * Clase listado de relaciones
+ * @author Jaime, Cesar; Camacho, Cristian
+ *
+ */
 public class RelacionesList extends JDialog {
 	
 	final static Logger logger = Logger.getLogger(RelacionesList .class);
@@ -37,7 +42,7 @@ public class RelacionesList extends JDialog {
 	private Relacion relacion;
 
 	/**
-	 * Create the frame.
+	 * Crea el marco.
 	 */
 	public RelacionesList() {
         logger.debug("Cargando lista de relaciones");
@@ -77,6 +82,12 @@ public class RelacionesList extends JDialog {
 		setModal(false);
 
 	}
+	
+	/**
+	 * manejador de eventos
+	 * @author usuario
+	 *
+	 */
 	private class Handler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 		
@@ -85,12 +96,19 @@ public class RelacionesList extends JDialog {
 		}
 	}
 
+	/**
+	 * carga la tabla
+	 */
 	public void loadTable() {
 		((DefaultTableModel) tableRelaciones.getModel()).setRowCount(0);
 		for (Relacion r : coordinador.listaRelaciones())
 			addRow(r);
 	}
 
+	/**
+	 * agrega una fila a la tabla con los datos de la relacion
+	 * @param relacion
+	 */
 	public void addRow(Relacion relacion) {
 		Object[] row = new Object[tableRelaciones.getModel().getColumnCount()];
 
@@ -106,6 +124,10 @@ public class RelacionesList extends JDialog {
 		((DefaultTableModel) tableRelaciones.getModel()).addRow(row);
 	}
 
+	/**
+	 * actualiza la fila de la tabla de relaciones
+	 * @param row
+	 */
 	private void updateRow(int row) {
 
 		tableRelaciones.setValueAt(relacion.getUsuario1().getNombre(), row, 0);
@@ -238,14 +260,26 @@ public class RelacionesList extends JDialog {
 		}
 	}
 
+	/**
+	 * establece accion
+	 * @param accion
+	 */
 	public void setAccion(int accion) {
 		this.accion = accion;
 	}
 
+	/**
+	 * establece relacion
+	 * @param relacion
+	 */
 	public void setRelacion(Relacion relacion) {
 		this.relacion = relacion;
 	}
 
+	/**
+	 * establece coordinador
+	 * @param coordinador
+	 */
 	public void setCoordinador(Coordinador coordinador) {
 		this.coordinador = coordinador;
 	}
