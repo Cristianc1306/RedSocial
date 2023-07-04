@@ -1,5 +1,6 @@
 # RedSocial
 Instancia Supervisada de Formación Práctica Profesional (ISFPP)
+
 Objetivo:
 Resolver problemas del mundo real (reales o hipotéticos) con POO con el propósito de desarrollar competencias y habilidades prácticas que serán requeridas en el desempeño como profesional.
 Se debe analizar y resolver un caso del mundo real con características de proyecto realizando el análisis, diseño y desarrollo de una aplicación utilizando POO.
