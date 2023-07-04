@@ -4,6 +4,7 @@ Instancia Supervisada de Formación Práctica Profesional (ISFPP)
 Objetivo:
 Resolver problemas del mundo real (reales o hipotéticos) con POO con el propósito de desarrollar competencias y habilidades prácticas que serán requeridas en el desempeño como profesional.
 Se debe analizar y resolver un caso del mundo real con características de proyecto realizando el análisis, diseño y desarrollo de una aplicación utilizando POO.
+
 Proyecto:
 Análisis de Redes Sociales
 El Análisis de Redes Sociales (Social Network Analysis, SNA) se centra en el descubrimiento de patrones de interacción entre usuarios en redes sociales. En este trabajo se requiere realizar un sistema que permita conocer y explorar las relaciones entre los mismos. 
@@ -16,6 +17,7 @@ c) ¿Cuáles son los usuarios que están más densamente conectados de acuerdo a
 d) ¿Cuál es el camino más nuevo entre 2 usuarios de la red?
 e) ¿Cuáles son las sugerencias de nuevas amistades para un usuario determinado? 
 En su desarrollo puede incluir consultas adicionales que sean de su interés.
+
 Modalidad:
 El desarrollo del trabajo es en grupo de dos o tres integrantes. Para gestionar el desarrollo se aconseja utilizar Git. La entrega del mismo es individual. 
 Los trabajos serán tutelados por los docentes integrantes de la cátedra.
@@ -32,6 +34,7 @@ c) Manual de desarrollo: incluir toda documentación que ayude a entender como e
     • Test utilizados para probar la lógica de la aplicación (clases JUnit).
     • Documentación del código generada con JavaDoc.
 d) Presentación: PowerPoint o PDF para mostrar el proyecto.
+
 Cronograma
 Etapa
 Fecha
